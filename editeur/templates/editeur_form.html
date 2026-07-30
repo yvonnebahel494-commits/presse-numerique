@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription avec survol de mot de passe</title>
+  <link rel="stylesheet" href="style/editeur_form.css">
+  <style>
+    /* Réinitialisation globale */
+/* Réinitialisation globale */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .form-container {
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 480px;
+  }
+  
+  .form-header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  .form-header h2 {
+    font-size: 26px;
+    color: #2c3e50;
+    margin-bottom: 6px;
+  }
+  
+  .form-header p {
+    font-size: 14px;
+    color: #7f8c8d;
+  }
+  
+  /* Disposition côte à côte (Nom / Prénom) */
+  .form-row {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .hint {
+    font-size: 11px;
+    color: #0056b3;
+    text-transform: none;
+    font-weight: normal;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #dcdfe6;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #2c3e50;
+    transition: all 0.25s ease;
+    background-color: #ffffff;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+  }
+  
+  /* Mise en valeur au survol du champ mot de passe */
+  .form-group input[type="password"]:hover,
+  .form-group input[type="text"]:hover {
+    border-color: #0056b3;
+  }
+  
+  /* Bouton principal */
+  .btn-submit {
+    width: 100%;
+    padding: 13px;
+    background-color: #0056b3;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 10px;
+  }
+  
+  .btn-submit:hover {
+    background-color: #003d80;
+  }
+  
+  .btn-submit:active {
+    transform: scale(0.98);
+  }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <div class="form-header">
+      <h2>Créer un compte</h2>
+      <p></p>
+    </div>
+
+    <form action="#" method="POST">
+      
+      <!-- Nom & Prénom -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+        </div>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="form-group">
+        <label for="telephone">Téléphone</label>
+        <input type="tel" id="telephone" name="telephone" placeholder="+237 6XX XX XX XX" required>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Adresse E-mail</label>
+        <input type="email" id="email" name="email" placeholder="nom@exemple.com" required>
+      </div>
+
+      <!-- Mot de passe  -->
+      <div class="form-group">
+        <label for="password">Mot de passe <span class="hint"></span></label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          placeholder="••••••••" 
+          required
+          onmouseenter="this.type='text'" 
+          onmouseleave="this.type='password'"
+        >
+      </div>
+
+      <!-- Confirmer mot de passe  -->
+      <div class="form-group">
+        <label for="confirm_password">Confirmer le mot de passe <span class="hint"></span></label>
+        <input 
+          type="password" 
+          id="confirm_password" 
+          name="confirm_password" 
+          placeholder="••••••••" 
+          required
+          onmouseenter="this.type='text'" 
+          onmouseleave="this.type='password'"
+        >
+      </div>
+
+      <!-- Bouton d'inscription -->
+      <button type="submit" class="btn-submit">S'inscrire</button>
+
+    </form>
+  </div>
+
+</body>
+</html>
