@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord - Éditeur</title>
+  <link rel="stylesheet" href="style/dashboard.css">
+    <style>/* Réinitialisation de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          }
+          
+          body {
+            background-color: #f4f6f9;
+            color: #333;
+          }
+          
+          .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+          }
+          
+          /* ===== BARRE LATÉRALE ===== */
+          .sidebar {
+            width: 260px;
+            background-color: #ffffff;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+          }
+          
+          .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            color: #0056b3;
+            margin-bottom: 30px;
+            padding-left: 10px;
+          }
+          
+          .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+          }
+          
+          .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: #64748b;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+          }
+          
+          .nav-btn:hover {
+            background-color: #f1f5f9;
+            color: #0056b3;
+          }
+          
+          .nav-btn.active {
+            background-color: #0056b3;
+            color: #ffffff;
+          }
+          
+          .sidebar-footer {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 16px;
+          }
+          
+          .logout-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background-color: #fef2f2;
+            color: #dc2626;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+          }
+          
+          .logout-btn:hover {
+            background-color: #fee2e2;
+          }
+          
+          /* ===== ZONE PRINCIPALE ===== */
+          .main-content {
+            flex: 1;
+            padding: 30px;
+          }
+          
+          .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+          }
+          
+          /* Gestion de l'affichage des onglets */
+          .tab-content {
+            display: none;
+          }
+          
+          .tab-content.active {
+            display: block;
+          }
+          
+          /* Cartes et conteneurs */
+          .card {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+          }
+          
+          .margin-top {
+            margin-top: 24px;
+          }
+          
+          /* Boutons generiques */
+          .btn-primary {
+            background-color: #0056b3;
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          .btn-primary:hover {
+            background-color: #004085;
+          }
+          
+          /* Tableau d'articles */
+          .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+          }
+          
+          .data-table th, .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+          }
+          
+          .data-table th {
+            color: #64748b;
+            font-size: 14px;
+          }
+          
+          .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+          }
+          
+          .status-published { background-color: #dcfce7; color: #166534; }
+          .status-draft { background-color: #fef9c3; color: #854d0e; }
+          
+          .action-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 8px;
+          }
+          
+          .action-btn.edit { color: #0284c7; }
+          .action-btn.delete { color: #dc2626; }
+          
+          /* Grille de statistiques */
+          .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+          }
+          
+          .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+          }
+          
+          .stat-icon {
+            font-size: 28px;
+            color: #0056b3;
+            background-color: #eff6ff;
+            padding: 16px;
+            border-radius: 12px;
+          }
+          
+          .chart-placeholder {
+            height: 220px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #94a3b8;
+            gap: 10px;
+            margin-top: 16px;
+          }
+          
+          .chart-placeholder i { font-size: 36px; }
+          
+          /* Section Profil */
+          .profile-card {
+            max-width: 600px;
+          }
+          
+          .avatar-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+          }
+          
+          .avatar-icon {
+            font-size: 40px;
+            color: #0056b3;
+            background-color: #e2e8f0;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .profile-form .form-group {
+            margin-bottom: 16px;
+          }
+          
+          .profile-form .form-row {
+            display: flex;
+            gap: 16px;
+          }
+          
+          .profile-form label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 6px;
+          }
+          
+          .profile-form input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+          }
+          
+          .profile-form input:disabled {
+            background-color: #f1f5f9;
+            color: #94a3b8;
+          }</style>
+  <!-- Icônes FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="dashboard-container">
+
+    <!-- Barre latérale / Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <i class="fa-solid fa-pen-nib"></i>
+        <h2>Espace Éditeur</h2>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-btn active" onclick="showTab('articles', this)">
+          <i class="fa-solid fa-newspaper"></i> Gérer les articles
+        </button>
+        
+        <button class="nav-btn" onclick="showTab('statistiques', this)">
+          <i class="fa-solid fa-chart-line"></i> Consulter les statistiques
+        </button>
+
+        <button class="nav-btn" onclick="showTab('profil', this)">
+          <i class="fa-solid fa-user"></i> Profil
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="alert('Déconnexion effectuée !')">
+          <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
+        </button>
+      </div>
+    </aside>
+
+    <!-- Zone d'affichage du contenu dynamique -->
+    <main class="main-content">
+
+      <!-- Section 1 : Gérer les articles -->
+      <section id="tab-articles" class="tab-content active">
+        <div class="content-header">
+          <h2>Gérer les articles</h2>
+          <button class="btn-primary"><i class="fa-solid fa-plus"></i> Nouvel article</button>
+        </div>
+
+        <div class="card">
+          <h3>Liste des articles</h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Titre</th>
+                <th>Catégorie</th>
+                <th>Date</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Les nouveautés du web design</td>
+                <td>Design</td>
+                <td>28/07/2026</td>
+                <td><span class="badge status-published">Publié</span></td>
+                <td>
+                  <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
+                  <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>Guide complet sur CSS Grid</td>
+                <td>Développement</td>
+                <td>25/07/2026</td>
+                <td><span class="badge status-draft">Brouillon</span></td>
+                <td>
+                  <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
+                  <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 2 : Consulter les statistiques -->
+      <section id="tab-statistiques" class="tab-content">
+        <div class="content-header">
+          <h2>Statistiques d'audience</h2>
+        </div>
+
+        <div class="stats-grid">
+          <div class="card stat-card">
+            <i class="fa-solid fa-eye stat-icon"></i>
+            <div>
+              <p>Vues totales</p>
+              <h3>45 280</h3>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <i class="fa-solid fa-file-signature stat-icon"></i>
+            <div>
+              <p>Articles publiés</p>
+              <h3>128</h3>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <i class="fa-solid fa-comments stat-icon"></i>
+            <div>
+              <p>Commentaires</p>
+              <h3>1 420</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="card margin-top">
+          <h3>Aperçu des performances</h3>
+          <div class="chart-placeholder">
+            <i class="fa-solid fa-chart-column"></i>
+            <p>Graphique des vues mensuelles (Zone de visualisation)</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3 : Profil -->
+      <section id="tab-profil" class="tab-content">
+        <div class="content-header">
+          <h2>Mon Profil</h2>
+        </div>
+
+        <div class="card profile-card">
+          <div class="avatar-container">
+            <i class="fa-solid fa-user avatar-icon"></i>
+          </div>
+          
+          <form class="profile-form" onsubmit="event.preventDefault(); alert('Profil mis à jour !');">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nom</label>
+                <input type="text" value="Dupont" required>
+              </div>
+              <div class="form-group">
+                <label>Prénom</label>
+                <input type="text" value="Jean" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Adresse Email</label>
+              <input type="email" value="jean.dupont@editeur.com" required>
+            </div>
+
+            <div class="form-group">
+              <label>Rôle</label>
+              <input type="text" value="Éditeur en chef" disabled>
+            </div>
+
+            <button type="submit" class="btn-primary">Enregistrer les modifications</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Script JS léger pour le basculement d'onglets -->
+  <script>
+    function showTab(tabId, element) {
+      // Masquer tous les contenus
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      // Retirer la classe active de tous les boutons
+      const buttons = document.querySelectorAll('.nav-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // Afficher l'onglet sélectionné
+      document.getElementById('tab-' + tabId).classList.add('active');
+
+      // Ajouter la classe active sur le bouton cliqué
+      element.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

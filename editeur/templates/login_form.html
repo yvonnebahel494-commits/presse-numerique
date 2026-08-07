@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion</title>
+  <link rel="stylesheet" href="style/login.css">
+  <style>
+    
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  
+  .login-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login-card h2 {
+    font-size: 24px;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  
+  .input-group input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+  }
+  
+  
+  .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 24px;
+  }
+  
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  .forgot-password {
+    color: #4a90e2;
+    text-decoration: none;
+  }
+  
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+  
+  
+  .btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #4a90e2;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-submit:hover {
+    background-color: #357abd;
+  }
+  
+
+  .signup-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .signup-link a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <h2>Connexion</h2>
+    <p class="subtitle">Veuillez entrer vos identifiants pour continuer</p>
+
+    <form action="#" method="POST">
+      <div class="input-group">
+        <label for="email">Adresse e-mail</label>
+        <input type="email" id="email" placeholder="nom@exemple.com" required>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+      </div>
+
+      <!-- <div class="options">
+        <label class="remember-me">
+          <input type="checkbox"> Se souvenir de moi
+        </label>
+        <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+      </div> -->
+
+      <button type="submit" class="btn-submit">Se connecter</button>
+    </form>
+
+    <div class="signup-link">
+      Pas encore de compte ? <a href="#">S'inscrire</a>
+    </div>
+  </div>
+
+</body>
+</html>

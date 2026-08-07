@@ -1,0 +1,116 @@
+/* Réinitialisation globale */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #e0eafc, #cfdef3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .form-container {
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 480px;
+  }
+  
+  .form-header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  .form-header h2 {
+    font-size: 26px;
+    color: #2c3e50;
+    margin-bottom: 6px;
+  }
+  
+  .form-header p {
+    font-size: 14px;
+    color: #7f8c8d;
+  }
+  
+  /* Disposition côte à côte (Nom / Prénom) */
+  .form-row {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .hint {
+    font-size: 11px;
+    color: #0056b3;
+    text-transform: none;
+    font-weight: normal;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #dcdfe6;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #2c3e50;
+    transition: all 0.25s ease;
+    background-color: #ffffff;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+  }
+  
+  /* Mise en valeur au survol du champ mot de passe */
+  .form-group input[type="password"]:hover,
+  .form-group input[type="text"]:hover {
+    border-color: #0056b3;
+  }
+  
+  /* Bouton principal */
+  .btn-submit {
+    width: 100%;
+    padding: 13px;
+    background-color: #0056b3;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 10px;
+  }
+  
+  .btn-submit:hover {
+    background-color: #003d80;
+  }
+  
+  .btn-submit:active {
+    transform: scale(0.98);
+  }
