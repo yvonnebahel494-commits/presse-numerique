@@ -9,6 +9,9 @@ SECRET_KEY = 'django-insecure-$8@o_z@#&1*i3yz6=9n^=#21l-it4pp&p7l5_htw&gflhl=g7z
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+SESSION_COOKIE_AGE = 3600
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = False
 
 ALLOWED_HOSTS = []
 
@@ -63,6 +66,16 @@ TEMPLATES = [
     },
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'truesitetechnology@gmail.com'
+EMAIL_HOST_PASSWORD = 'tiqcewrzgjjbnhil'
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 WSGI_APPLICATION = 'monsite.wsgi.application'
 
@@ -114,6 +127,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Static files
 

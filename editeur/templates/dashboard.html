@@ -280,7 +280,62 @@
           .profile-form input:disabled {
             background-color: #f1f5f9;
             color: #94a3b8;
-          }</style>
+          }
+          
+          /* modal nouvel article*/
+          .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    width: 500px;
+    max-width: 90%;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.modal-close {
+    border: none;
+    background: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.modal-content .form-group {
+    margin-bottom: 15px;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+          </style>
   <!-- Icônes FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -308,12 +363,16 @@
           <i class="fa-solid fa-user"></i> Profil
         </button>
       </nav>
-
-      <div class="sidebar-footer">
-        <button class="logout-btn" onclick="alert('Déconnexion effectuée !')">
+       <form action="{% url 'logout_editeur' %}" method="POST">
+  
+          {% csrf_token %}
+        <div class="sidebar-footer">
+        <button type="submit" class="logout-btn" onclick="alert('Déconnexion effectuée !')">
           <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
         </button>
       </div>
+      </form>
+      
     </aside>
 
     <!-- Zone d'affichage du contenu dynamique -->
@@ -323,7 +382,7 @@
       <section id="tab-articles" class="tab-content active">
         <div class="content-header">
           <h2>Gérer les articles</h2>
-          <button class="btn-primary"><i class="fa-solid fa-plus"></i> Nouvel article</button>
+         <button class="btn-primary" onclick="ouvrirModalArticle()"><i class="fa-solid fa-plus"></i> Nouvel article</button>
         </div>
 
         <div class="card">
@@ -333,36 +392,293 @@
               <tr>
                 <th>Titre</th>
                 <th>Catégorie</th>
-                <th>Date</th>
-                <th>Statut</th>
+                <th>Date Pub</th>
+                <th>Image</th>
+                <th>PDF</th>
+                <th>Prix</th>
+                <th>Publié par</th>
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Les nouveautés du web design</td>
-                <td>Design</td>
-                <td>28/07/2026</td>
-                <td><span class="badge status-published">Publié</span></td>
-                <td>
-                  <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
-                  <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td>Guide complet sur CSS Grid</td>
-                <td>Développement</td>
-                <td>25/07/2026</td>
-                <td><span class="badge status-draft">Brouillon</span></td>
-                <td>
-                  <button class="action-btn edit"><i class="fa-solid fa-pen"></i></button>
-                  <button class="action-btn delete"><i class="fa-solid fa-trash"></i></button>
-                </td>
-              </tr>
-            </tbody>
+           <tbody>
+
+{% for article in articles %}
+
+<tr>
+
+    <td>
+        {{ article.titre }}
+    </td>
+
+    <td>
+        {{ article.get_type_display }}
+    </td>
+
+    <td>
+        {{ article.date_publication|date:"d/m/Y" }}
+    </td>
+
+    <td>
+
+        {% if article.image %}
+
+            <img
+                src="{{ article.image.url }}"
+                width="50"
+                height="50"
+                style="object-fit: cover; border-radius: 5px;"
+            >
+
+        {% else %}
+
+            Aucune
+
+        {% endif %}
+
+    </td>
+
+    <td>
+
+        {% if article.pdf %}
+
+            <a
+                href="{{ article.pdf.url }}"
+                target="_blank"
+            >
+                <i class="fa-solid fa-file-pdf"></i>
+                PDF
+            </a>
+
+        {% else %}
+
+            Aucun
+
+        {% endif %}
+
+    </td>
+
+    <td>
+        {{ article.prix }} FCFA
+    </td>
+
+    <td>
+        {{ article.editeur.nom }}
+        {{ article.editeur.prenom }}
+    </td>
+
+    <td>
+
+        <a
+            href="{% url 'modifier_article' article.id %}"
+            class="action-btn edit"
+        >
+            <i class="fa-solid fa-pen"></i>
+        </a>
+
+
+        <a
+            href="{% url 'supprimer_article' article.id %}"
+            class="action-btn delete"
+            onclick="return confirm('Voulez-vous vraiment supprimer cet article ?');"
+        >
+            <i class="fa-solid fa-trash"></i>
+        </a>
+
+    </td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+    <td colspan="8" style="text-align:center;">
+        Aucun article publié pour le moment.
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
           </table>
         </div>
       </section>
+      <div id="articleModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Nouvel article
+            </h2>
+
+            <button
+                type="button"
+                class="modal-close"
+                onclick="fermerModalArticle()">
+                &times;
+            </button>
+
+        </div>
+
+
+        <form
+            id="articleForm"
+            method="POST"
+            enctype="multipart/form-data"
+            action="{% url 'creer_article' %}"
+        >
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="article_id"
+                id="article_id"
+            >
+
+
+            <div class="form-group">
+
+                <label for="titre">
+                    Titre
+                </label>
+
+                <input
+                    type="text"
+                    id="titre"
+                    name="titre"
+                    placeholder="Titre de l'article"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="type">
+                    Type
+                </label>
+
+                <select
+                    id="type"
+                    name="type"
+                    required
+                >
+
+                    <option value="">
+                        -- Sélectionner un type --
+                    </option>
+
+                    <option value="actualite">
+                        Actualité
+                    </option>
+
+                    <option value="politique">
+                        Politique
+                    </option>
+
+                    <option value="economie">
+                        Économie
+                    </option>
+
+                    <option value="sport">
+                        Sport
+                    </option>
+
+                    <option value="culture">
+                        Culture
+                    </option>
+
+                    <option value="technologie">
+                        Technologie
+                    </option>
+
+                    <option value="societe">
+                        Société
+                    </option>
+
+                    <option value="autre">
+                        Autre
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="prix">
+                    Prix
+                </label>
+
+                <input
+                    type="number"
+                    id="prix"
+                    name="prix"
+                    min="0"
+                    step="0.01"
+                    placeholder="Ex: 500"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="image">
+                    Image
+                </label>
+
+                <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/*"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="pdf">
+                    Fichier PDF
+                </label>
+
+                <input
+                    type="file"
+                    id="pdf"
+                    name="pdf"
+                    accept="application/pdf"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn-submit"
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                <span id="btnArticleText">
+                    Publier
+                </span>
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 
       <!-- Section 2 : Consulter les statistiques -->
       <section id="tab-statistiques" class="tab-content">
@@ -463,6 +779,35 @@
       element.classList.add('active');
     }
   </script>
+  <script>
+
+function ouvrirModalArticle() {
+
+    document.getElementById("articleModal").style.display = "flex";
+
+}
+
+
+function fermerModalArticle() {
+
+    document.getElementById("articleModal").style.display = "none";
+
+}
+
+
+window.onclick = function(event) {
+
+    const modal = document.getElementById("articleModal");
+
+    if (event.target === modal) {
+
+        fermerModalArticle();
+
+    }
+
+}
+
+</script>
 
 </body>
 </html>

@@ -133,65 +133,72 @@
       <p></p>
     </div>
 
-    <form action="#" method="POST">
-      
-      <!-- Nom & Prénom -->
-      <div class="form-row">
-        <div class="form-group">
-          <label for="nom">Nom</label>
-          <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
-        </div>
+    <form action="{% url 'creer_editeur' %}" method="POST">
+  
+  {% csrf_token %}
 
-        <div class="form-group">
-          <label for="prenom">Prénom</label>
-          <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
-        </div>
-      </div>
+  <!-- Messages -->
+  {% if messages %}
+      {% for message in messages %}
+          <div class="alert 
+              {% if message.tags == 'error' %}
+                  alert-danger
+              {% else %}
+                  alert-success
+              {% endif %}">
+              {{ message }}
+          </div>
+      {% endfor %}
+  {% endif %}
 
-      <!-- Téléphone -->
-      <div class="form-group">
-        <label for="telephone">Téléphone</label>
-        <input type="tel" id="telephone" name="telephone" placeholder="+237 6XX XX XX XX" required>
-      </div>
 
-      <!-- Email -->
-      <div class="form-group">
-        <label for="email">Adresse E-mail</label>
-        <input type="email" id="email" name="email" placeholder="nom@exemple.com" required>
-      </div>
+  <!-- Nom & Prénom -->
+  <div class="form-row">
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input type="text" name="nom" placeholder="Votre nom" required>
+    </div>
 
-      <!-- Mot de passe  -->
-      <div class="form-group">
-        <label for="password">Mot de passe <span class="hint"></span></label>
-        <input 
-          type="password" 
-          id="password" 
-          name="password" 
-          placeholder="••••••••" 
-          required
-          onmouseenter="this.type='text'" 
-          onmouseleave="this.type='password'"
-        >
-      </div>
+    <div class="form-group">
+      <label for="prenom">Prénom</label>
+      <input type="text" name="prenom" placeholder="Votre prénom" required>
+    </div>
+  </div>
 
-      <!-- Confirmer mot de passe  -->
-      <div class="form-group">
-        <label for="confirm_password">Confirmer le mot de passe <span class="hint"></span></label>
-        <input 
-          type="password" 
-          id="confirm_password" 
-          name="confirm_password" 
-          placeholder="••••••••" 
-          required
-          onmouseenter="this.type='text'" 
-          onmouseleave="this.type='password'"
-        >
-      </div>
 
-      <!-- Bouton d'inscription -->
-      <button type="submit" class="btn-submit">S'inscrire</button>
+  <div class="form-group">
+    <label>Téléphone</label>
+    <input type="tel" name="telephone" required>
+  </div>
 
-    </form>
+
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="email" required>
+  </div>
+
+
+  <div class="form-group">
+    <label>Identifiant Maison</label>
+    <input type="text" name="identm" placeholder="Identifiant de la maison" required>
+  </div>
+
+
+  <div class="form-group">
+    <label>Mot de passe</label>
+    <input type="password" name="password" required>
+  </div>
+
+
+  <div class="form-group">
+    <label>Confirmer le mot de passe</label>
+    <input type="password" name="confirm_password" required>
+  </div>
+
+
+  <button type="submit" class="btn-submit">S'inscrire</button>
+
+</form>
   </div>
 
 </body>

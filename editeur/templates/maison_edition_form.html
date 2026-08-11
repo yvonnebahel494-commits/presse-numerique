@@ -144,56 +144,54 @@
       <p>Renseignez les informations ci-dessous pour enregistrer la maison</p>
     </div>
 
-    <form action="#" method="POST" enctype="multipart/form-data">
-      
-      <!-- Nom & Ville côte à côte -->
-      <div class="form-row">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+   <form action="{% url 'creer_maison' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Nom & Ville côte à côte -->
+    <div class="form-row">
         <div class="form-group">
-          <label for="nom">Nom de la maison</label>
-          <input type="text" id="nom" name="nom" placeholder="Ex: Maison de la Paix" required>
+            <label>Nom de la maison</label>
+            <input type="text" name="nom" required>
         </div>
 
         <div class="form-group">
-          <label for="ville">Ville</label>
-          <input type="text" id="ville" name="ville" placeholder="Ex: Yaoundé" required>
+            <label>Ville</label>
+            <input type="text" name="ville" required>
         </div>
-      </div>
+    </div>
 
-      <!-- Téléphone -->
-      <div class="form-group">
-        <label for="telephone">Téléphone</label>
-        <input type="tel" id="telephone" name="telephone" placeholder="+237 6XX XX XX XX" required>
-      </div>
+    <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" name="telephone" required>
+    </div>
 
-      <!-- Email -->
-      <div class="form-group">
-        <label for="email">Adresse E-mail</label>
-        <input type="email" id="email" name="email" placeholder="contact@maison.com" required>
-      </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" required>
+    </div>
 
-      <!-- Type de maison -->
-      <div class="form-group">
-        <label for="type">Type de maison</label>
-        <select id="type" name="type" required>
-          <option value="" disabled selected>Sélectionnez un type</option>
-          <option value="villa">Villa</option>
-          <option value="appartement">Appartement</option>
-          <option value="duplex">Duplex</option>
-          <option value="studio">Studio</option>
-          <option value="maison_hote">Maison d'hôte</option>
-        </select>
-      </div>
+    <div class="form-group">
+        <label>Lieu</label>
+        <input type="text" name="lieu" required>
+    </div>
 
-      <!-- Logo / Image -->
-      <div class="form-group">
-        <label for="logo">Logo / Image de la maison</label>
-        <input type="file" id="logo" name="logo" accept="image/*" required>
-      </div>
+    <div class="form-group">
+        <label>Logo</label>
+        <input type="file" name="logo" accept="image/*">
+    </div>
 
-      <!-- Bouton de création -->
-      <button type="submit" class="btn-submit">Créer la maison</button>
+    <button type="submit" class="btn-submit">Créer la maison</button>
+   
 
-    </form>
+</form>
   </div>
 
 </body>
