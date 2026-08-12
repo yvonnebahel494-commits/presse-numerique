@@ -1,11 +1,2873 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="fr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Presse Numérique | Accueil</title>
+
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+<style>
+
+    /* =====================================================
+       VARIABLES
+    ===================================================== */
+
+    :root {
+
+        --blue: #2563eb;
+        --blue-dark: #1d4ed8;
+        --blue-light: #eff6ff;
+
+        --pink: #ec4899;
+        --pink-dark: #db2777;
+        --pink-light: #fdf2f8;
+
+        --black: #111827;
+        --dark: #1f2937;
+
+        --white: #ffffff;
+
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+
+        --shadow:
+            0 10px 30px rgba(0, 0, 0, 0.08);
+
+        --radius: 12px;
+
+    }
+
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+
+    body {
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        background: var(--gray-50);
+
+        color: var(--black);
+
+        line-height: 1.6;
+
+    }
+
+
+    a {
+        text-decoration: none;
+    }
+
+
+    button,
+    input {
+        font-family: inherit;
+    }
+
+
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
+
+    .navbar {
+
+        height: 76px;
+
+        width: 100%;
+
+        background: var(--white);
+
+        border-bottom:
+            1px solid var(--gray-200);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding: 0 6%;
+
+        position: sticky;
+
+        top: 0;
+
+        z-index: 1000;
+
+        box-shadow:
+            0 2px 12px rgba(0, 0, 0, 0.04);
+
+    }
+
+
+    /* LOGO */
+
+    .logo {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 11px;
+
+        color: var(--black);
+
+        font-size: 21px;
+
+        font-weight: 800;
+
+        white-space: nowrap;
+
+    }
+
+
+    .logo-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 10px;
+
+        background:
+            linear-gradient(
+                135deg,
+                var(--blue),
+                var(--pink)
+            );
+
+        color: white;
+
+        font-size: 20px;
+
+    }
+
+
+    .logo span span {
+        color: var(--pink);
+    }
+
+
+    /* MENU */
+
+    .nav-menu {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 5px;
+
+        list-style: none;
+
+    }
+
+
+    .nav-menu a {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        padding: 10px 13px;
+
+        color: var(--gray-600);
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        border-radius: 8px;
+
+        transition:
+            background 0.25s,
+            color 0.25s,
+            transform 0.25s;
+
+    }
+
+
+    .nav-menu a:hover {
+
+        background: var(--blue-light);
+
+        color: var(--blue);
+
+    }
+
+
+    .nav-menu a.active {
+
+        background: var(--blue);
+
+        color: var(--white);
+
+    }
+
+
+    /* ABONNEMENT */
+
+    .nav-subscribe {
+
+        background:
+            linear-gradient(
+                135deg,
+                var(--pink),
+                var(--pink-dark)
+            ) !important;
+
+        color: white !important;
+
+    }
+
+
+    .nav-subscribe:hover {
+
+        transform: translateY(-1px);
+
+    }
+
+
+    /* SEARCH */
+
+    .search-box {
+
+        display: flex;
+
+        align-items: center;
+
+        height: 42px;
+
+        margin-left: 8px;
+
+        border:
+            1px solid var(--gray-200);
+
+        border-radius: 9px;
+
+        background: var(--white);
+
+        overflow: hidden;
+
+        transition:
+            border-color 0.25s,
+            box-shadow 0.25s;
+
+    }
+
+
+    .search-box:focus-within {
+
+        border-color: var(--blue);
+
+        box-shadow:
+            0 0 0 3px
+            rgba(37, 99, 235, 0.1);
+
+    }
+
+
+    .search-box input {
+
+        width: 160px;
+
+        height: 100%;
+
+        padding: 0 12px;
+
+        border: none;
+
+        outline: none;
+
+        font-size: 14px;
+
+    }
+
+
+    .search-box button {
+
+        width: 42px;
+
+        height: 100%;
+
+        border: none;
+
+        background: transparent;
+
+        color: var(--blue);
+
+        cursor: pointer;
+
+        transition: 0.2s;
+
+    }
+
+
+    .search-box button:hover {
+
+        background: var(--blue-light);
+
+    }
+
+
+    /* MOBILE BUTTON */
+
+    .menu-toggle {
+
+        display: none;
+
+        width: 42px;
+
+        height: 42px;
+
+        border: none;
+
+        border-radius: 8px;
+
+        background: var(--blue-light);
+
+        color: var(--blue);
+
+        font-size: 20px;
+
+        cursor: pointer;
+
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .hero {
+
+        position: relative;
+
+        overflow: hidden;
+
+        min-height: 570px;
+
+        display: flex;
+
+        align-items: center;
+
+        padding:
+            80px 8%;
+
+        background:
+
+            radial-gradient(
+                circle at 85% 20%,
+                rgba(236, 72, 153, 0.20),
+                transparent 30%
+            ),
+
+            radial-gradient(
+                circle at 10% 80%,
+                rgba(37, 99, 235, 0.20),
+                transparent 35%
+            ),
+
+            var(--black);
+
+        color: white;
+
+    }
+
+
+    .hero::before {
+
+        content: "";
+
+        position: absolute;
+
+        width: 350px;
+
+        height: 350px;
+
+        border-radius: 50%;
+
+        border:
+            1px solid
+            rgba(255,255,255,0.08);
+
+        right: 8%;
+
+        top: 15%;
+
+    }
+
+
+    .hero-content {
+
+        position: relative;
+
+        z-index: 2;
+
+        max-width: 760px;
+
+    }
+
+
+    .hero-badge {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        padding: 8px 13px;
+
+        margin-bottom: 22px;
+
+        border-radius: 30px;
+
+        background:
+            rgba(255,255,255,0.08);
+
+        border:
+            1px solid
+            rgba(255,255,255,0.12);
+
+        color: #e5e7eb;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+    }
+
+
+    .hero-badge i {
+        color: var(--pink);
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            clamp(40px, 5vw, 68px);
+
+        line-height: 1.05;
+
+        letter-spacing: -2px;
+
+        margin-bottom: 24px;
+
+    }
+
+
+    .hero h1 .blue {
+        color: #60a5fa;
+    }
+
+
+    .hero h1 .pink {
+        color: #f472b6;
+    }
+
+
+    .hero-description {
+
+        max-width: 650px;
+
+        color: #d1d5db;
+
+        font-size: 18px;
+
+        line-height: 1.8;
+
+        margin-bottom: 32px;
+
+    }
+
+
+    .hero-buttons {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .btn {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 9px;
+
+        min-height: 48px;
+
+        padding:
+            0 20px;
+
+        border-radius: 9px;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        transition:
+            transform 0.25s,
+            box-shadow 0.25s;
+
+    }
+
+
+    .btn:hover {
+
+        transform: translateY(-2px);
+
+    }
+
+
+    .btn-primary {
+
+        background: var(--blue);
+
+        color: white;
+
+        box-shadow:
+            0 8px 20px
+            rgba(37, 99, 235, 0.25);
+
+    }
+
+
+    .btn-primary:hover {
+
+        background: var(--blue-dark);
+
+    }
+
+
+    .btn-secondary {
+
+        border:
+            1px solid
+            rgba(255,255,255,0.2);
+
+        color: white;
+
+        background:
+            rgba(255,255,255,0.05);
+
+    }
+
+
+    .btn-secondary:hover {
+
+        background:
+            rgba(255,255,255,0.1);
+
+    }
+
+
+    /* =====================================================
+       STATISTIQUES
+    ===================================================== */
+
+    .stats {
+
+        position: relative;
+
+        margin-top: -45px;
+
+        z-index: 5;
+
+        padding: 0 8%;
+
+    }
+
+
+    .stats-container {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        background: white;
+
+        border-radius: 15px;
+
+        box-shadow: var(--shadow);
+
+        border:
+            1px solid var(--gray-200);
+
+        overflow: hidden;
+
+    }
+
+
+    .stat {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 15px;
+
+        padding: 25px;
+
+    }
+
+
+    .stat + .stat {
+
+        border-left:
+            1px solid var(--gray-200);
+
+    }
+
+
+    .stat-icon {
+
+        width: 48px;
+
+        height: 48px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 10px;
+
+        background: var(--blue-light);
+
+        color: var(--blue);
+
+    }
+
+
+    .stat:nth-child(2) .stat-icon {
+
+        background: var(--pink-light);
+
+        color: var(--pink);
+
+    }
+
+
+    .stat strong {
+
+        display: block;
+
+        font-size: 22px;
+
+        color: var(--black);
+
+    }
+
+
+    .stat span {
+
+        color: var(--gray-500);
+
+        font-size: 13px;
+
+    }
+
+
+    /* =====================================================
+       SECTION
+    ===================================================== */
+
+    .section {
+
+        padding:
+            90px 8%;
+
+    }
+
+
+    .section-header {
+
+        max-width: 700px;
+
+        margin:
+            0 auto 45px;
+
+        text-align: center;
+
+    }
+
+
+    .section-label {
+
+        display: inline-block;
+
+        margin-bottom: 10px;
+
+        color: var(--pink);
+
+        font-size: 13px;
+
+        font-weight: 800;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+
+    }
+
+
+    .section-header h2 {
+
+        font-size:
+            clamp(28px, 4vw, 38px);
+
+        line-height: 1.2;
+
+        margin-bottom: 13px;
+
+    }
+
+
+    .section-header p {
+
+        color: var(--gray-500);
+
+        font-size: 16px;
+
+    }
+
+
+    /* =====================================================
+       CARDS
+    ===================================================== */
+
+    .cards {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 24px;
+
+        max-width: 1200px;
+
+        margin: auto;
+
+    }
+
+
+    .card {
+
+        background: white;
+
+        border:
+            1px solid var(--gray-200);
+
+        border-radius: var(--radius);
+
+        padding: 30px;
+
+        transition:
+            transform 0.25s,
+            box-shadow 0.25s,
+            border-color 0.25s;
+
+    }
+
+
+    .card:hover {
+
+        transform: translateY(-6px);
+
+        box-shadow: var(--shadow);
+
+        border-color:
+            rgba(37, 99, 235, 0.25);
+
+    }
+
+
+    .card-icon {
+
+        width: 54px;
+
+        height: 54px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        margin-bottom: 22px;
+
+        border-radius: 12px;
+
+        background: var(--blue-light);
+
+        color: var(--blue);
+
+        font-size: 21px;
+
+    }
+
+
+    .card:nth-child(2) .card-icon {
+
+        background: var(--pink-light);
+
+        color: var(--pink);
+
+    }
+
+
+    .card:nth-child(3) .card-icon {
+
+        background:
+            #eef2ff;
+
+        color:
+            #6366f1;
+
+    }
+
+
+    .card h3 {
+
+        margin-bottom: 10px;
+
+        font-size: 19px;
+
+    }
+
+
+    .card p {
+
+        color: var(--gray-500);
+
+        line-height: 1.7;
+
+        font-size: 14px;
+
+    }
+
+
+    /* =====================================================
+       ABONNEMENT
+    ===================================================== */
+
+    .subscription {
+
+        background:
+            linear-gradient(
+                135deg,
+                var(--blue),
+                var(--pink)
+            );
+
+        color: white;
+
+        text-align: center;
+
+        border-radius: 20px;
+
+        padding:
+            65px 30px;
+
+        max-width: 1200px;
+
+        margin: auto;
+
+    }
+
+
+    .subscription h2 {
+
+        font-size:
+            clamp(28px, 4vw, 40px);
+
+        margin-bottom: 12px;
+
+    }
+
+
+    .subscription p {
+
+        max-width: 600px;
+
+        margin:
+            0 auto 25px;
+
+        color:
+            rgba(255,255,255,0.85);
+
+    }
+
+
+    .subscription .btn {
+
+        background: white;
+
+        color: var(--blue);
+
+    }
+
+
+    /* =====================================================
+       MAISONS
+    ===================================================== */
+
+    .houses-section {
+
+        background: white;
+
+    }
+
+
+    .houses {
+
+        max-width: 1200px;
+
+        margin: auto;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 20px;
+
+    }
+
+
+    .house {
+
+        padding: 25px;
+
+        border:
+            1px solid var(--gray-200);
+
+        border-radius: 12px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 15px;
+
+        transition: 0.25s;
+
+    }
+
+
+    .house:hover {
+
+        border-color: var(--blue);
+
+        box-shadow: var(--shadow);
+
+    }
+
+
+    .house-logo {
+
+        width: 52px;
+
+        height: 52px;
+
+        border-radius: 10px;
+
+        background:
+            linear-gradient(
+                135deg,
+                var(--blue),
+                var(--pink)
+            );
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        color: white;
+
+    }
+
+
+    .house h3 {
+
+        font-size: 16px;
+
+        margin-bottom: 3px;
+
+    }
+
+
+    .house p {
+
+        color: var(--gray-500);
+
+        font-size: 13px;
+
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    footer {
+
+        background: var(--black);
+
+        color: white;
+
+        padding:
+            55px 8% 25px;
+
+    }
+
+
+    .footer-container {
+
+        max-width: 1200px;
+
+        margin: auto;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        gap: 40px;
+
+        padding-bottom: 35px;
+
+        border-bottom:
+            1px solid
+            rgba(255,255,255,0.1);
+
+    }
+
+
+    .footer-brand {
+
+        max-width: 400px;
+
+    }
+
+
+    .footer-brand .logo {
+
+        color: white;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .footer-brand p {
+
+        color: #9ca3af;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+
+    }
+
+
+    .footer-links h4 {
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .footer-links a {
+
+        display: block;
+
+        color: #9ca3af;
+
+        margin-bottom: 8px;
+
+        font-size: 14px;
+
+    }
+
+
+    .footer-links a:hover {
+
+        color: #60a5fa;
+
+    }
+
+
+    .copyright {
+
+        max-width: 1200px;
+
+        margin: 20px auto 0;
+
+        color: #6b7280;
+
+        font-size: 13px;
+
+    }
+
+
+    /* =====================================================
+       RESPONSIVE TABLET
+    ===================================================== */
+
+    @media (max-width: 1100px) {
+
+        .navbar {
+            padding: 0 4%;
+        }
+
+        .nav-menu a {
+            padding:
+                9px 8px;
+
+            font-size: 13px;
+        }
+
+        .search-box input {
+            width: 120px;
+        }
+
+        .cards,
+        .houses {
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+        }
+
+    }
+
+
+    /* =====================================================
+       RESPONSIVE MOBILE
+    ===================================================== */
+
+    @media (max-width: 800px) {
+
+        .navbar {
+
+            height: 68px;
+
+            padding:
+                0 20px;
+
+        }
+
+
+        .menu-toggle {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        .nav-menu {
+
+            position: absolute;
+
+            top: 68px;
+
+            left: 0;
+
+            width: 100%;
+
+            display: none;
+
+            flex-direction: column;
+
+            align-items: stretch;
+
+            gap: 3px;
+
+            padding: 15px;
+
+            background: white;
+
+            border-bottom:
+                1px solid var(--gray-200);
+
+            box-shadow:
+                0 15px 25px
+                rgba(0,0,0,0.08);
+
+        }
+
+
+        .nav-menu.active {
+
+            display: flex;
+
+        }
+
+
+        .nav-menu a {
+
+            width: 100%;
+
+            padding: 13px;
+
+        }
+
+
+        .search-box {
+
+            width: 100%;
+
+            margin:
+                5px 0 0;
+
+        }
+
+
+        .search-box input {
+
+            width: 100%;
+
+        }
+
+
+        .hero {
+
+            min-height: 500px;
+
+            padding:
+                70px 25px;
+
+        }
+
+
+        .hero h1 {
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .hero-description {
+
+            font-size: 16px;
+
+        }
+
+
+        .stats {
+
+            margin-top: 0;
+
+            padding:
+                25px;
+
+        }
+
+
+        .stats-container {
+
+            grid-template-columns: 1fr;
+
+        }
+
+
+        .stat + .stat {
+
+            border-left: none;
+
+            border-top:
+                1px solid var(--gray-200);
+
+        }
+
+
+        .section {
+
+            padding:
+                65px 25px;
+
+        }
+
+
+        .cards,
+        .houses {
+
+            grid-template-columns: 1fr;
+
+        }
+
+
+        .subscription {
+
+            border-radius: 14px;
+
+            padding:
+                50px 22px;
+
+        }
+
+
+        .footer-container {
+
+            flex-direction: column;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       PETIT MOBILE
+    ===================================================== */
+
+    @media (max-width: 450px) {
+
+        .logo {
+
+            font-size: 17px;
+
+        }
+
+
+        .logo-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+        }
+
+
+        .hero {
+
+            padding:
+                60px 20px;
+
+        }
+
+
+        .hero h1 {
+
+            font-size: 37px;
+
+        }
+
+
+        .hero-buttons {
+
+            flex-direction: column;
+
+            align-items: stretch;
+
+        }
+
+
+        .btn {
+
+            width: 100%;
+
+        }
+
+
+        .section {
+
+            padding:
+                55px 20px;
+
+        }
+
+    }
+/* =====================================================
+ARTICLES DYNAMIQUES
+===================================================== */
+
+.articles-grid {
+max-width: 1200px;
+
+margin: 0 auto;
+
+display: grid;
+
+grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+gap: 25px;
+}
+
+/* CARTE ARTICLE */
+
+.article-card {
+background: #ffffff;
+
+border:
+    1px solid #e5e7eb;
+
+border-radius: 14px;
+
+overflow: hidden;
+
+transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.article-card:hover {
+transform: translateY(-6px);
+
+border-color:
+    rgba(37, 99, 235, .25);
+
+box-shadow:
+    0 15px 35px
+    rgba(0, 0, 0, .09);
+}
+
+/* IMAGE */
+
+.article-image {
+position: relative;
+
+width: 100%;
+
+height: 230px;
+
+overflow: hidden;
+
+background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #ec4899
+    );
+
+}
+
+.article-image img {
+width: 100%;
+
+height: 100%;
+
+object-fit: cover;
+
+display: block;
+
+transition:
+    transform .4s ease;
+
+}
+
+.article-card:hover
+.article-image img {
+transform: scale(1.05);
+
+}
+
+/* AUCUNE IMAGE */
+
+.article-no-image {
+width: 100%;
+
+height: 100%;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+color: #ffffff;
+
+font-size: 50px;
+}
+
+/* PRIX */
+
+.article-price {
+position: absolute;
+
+right: 15px;
+
+bottom: 15px;
+
+padding:
+    7px 12px;
+
+border-radius: 7px;
+
+background: #ffffff;
+
+color: #111827;
+
+font-size: 14px;
+
+font-weight: 800;
+
+box-shadow:
+    0 4px 12px
+    rgba(0, 0, 0, .15);
+
+
+}
+
+/* CONTENU */
+
+.article-content {
+
+padding: 22px;
+
+
+}
+
+/* MAISON */
+
+.article-house {
+display: flex;
+
+align-items: center;
+
+gap: 7px;
+
+margin-bottom: 9px;
+
+color: #2563eb;
+
+font-size: 12px;
+
+font-weight: 700;
+
+}
+
+.article-house i {
+
+
+color: #ec4899;
+
+
+}
+
+/* TITRE */
+
+.article-title {
+
+
+color: #111827;
+
+font-size: 19px;
+
+line-height: 1.4;
+
+margin-bottom: 10px;
+
+
+}
+
+/* DATE */
+
+.article-date {
+
+display: flex;
+
+align-items: center;
+
+gap: 6px;
+
+color: #6b7280;
+
+font-size: 12px;
+
+margin-bottom: 18px;
+
+
+}
+
+.article-date i {
+
+
+color: #2563eb;
+
+}
+
+/* BOUTONS */
+
+.article-buttons {
+
+display: flex;
+
+flex-direction: column;
+
+gap: 9px;
+
+}
+
+/* FORMULAIRE PANIER */
+
+.article-buttons form {
+
+
+width: 100%;
+
+margin: 0;
+
+}
+
+/* PANIER */
+
+.btn-cart {
+
+width: 100%;
+
+min-height: 44px;
+
+border: none;
+
+border-radius: 8px;
+
+background: #2563eb;
+
+color: #ffffff;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 8px;
+
+font-size: 13px;
+
+font-weight: 700;
+
+cursor: pointer;
+
+transition: .25s;
+
+}
+
+.btn-cart:hover {
+
+
+background: #1d4ed8;
+}
+
+/* ABONNEMENT */
+
+.btn-article-subscribe {
+width: 100%;
+
+min-height: 44px;
+
+border-radius: 8px;
+
+background: #fdf2f8;
+
+border:
+    1px solid #fbcfe8;
+
+color: #db2777;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 8px;
+
+font-size: 13px;
+
+font-weight: 700;
+
+transition: .25s;
+
+}
+
+.btn-article-subscribe:hover {
+
+background: #ec4899;
+
+border-color: #ec4899;
+
+color: #ffffff;
+
+
+}
+
+/* COMMENTAIRE */
+
+.article-comment {
+
+margin-top: 20px;
+
+padding-top: 17px;
+
+border-top:
+    1px solid #f0f0f0;
+
+
+}
+
+.article-comment label {
+display: block;
+
+margin-bottom: 8px;
+
+color: #4b5563;
+
+font-size: 12px;
+
+font-weight: 700;
+
+}
+
+.article-comment label i {
+
+color: #ec4899;
+
+margin-right: 5px;
+
+
+}
+
+/* INPUT COMMENTAIRE */
+
+.comment-box {
+
+
+display: flex;
+
+align-items: center;
+
+width: 100%;
+
+height: 42px;
+
+overflow: hidden;
+
+border:
+    1px solid #e5e7eb;
+
+border-radius: 8px;
+
+background: #ffffff;
+
+transition: .25s;
+
+
+}
+
+.comment-box:focus-within {
+
+
+border-color: #2563eb;
+
+box-shadow:
+    0 0 0 3px
+    rgba(37, 99, 235, .08);
+
+
+}
+
+.comment-box input {
+
+
+width: 100%;
+
+height: 100%;
+
+padding:
+    0 11px;
+
+border: none;
+
+outline: none;
+
+font-size: 12px;
+
+
+}
+
+.comment-box button {
+
+
+width: 42px;
+
+height: 100%;
+
+flex-shrink: 0;
+
+border: none;
+
+background: transparent;
+
+color: #2563eb;
+
+cursor: pointer;
+
+
+}
+
+.comment-box button:hover {
+
+
+color: #ec4899;
+
+
+}
+
+/* AUCUN ARTICLE */
+
+.no-articles {
+max-width: 600px;
+
+margin: 0 auto;
+
+padding: 60px 25px;
+
+background: #ffffff;
+
+border:
+    1px solid #e5e7eb;
+
+border-radius: 14px;
+
+text-align: center;
+
+
+}
+
+.no-articles-icon {
+
+
+width: 70px;
+
+height: 70px;
+
+margin:
+    0 auto 20px;
+
+border-radius: 50%;
+
+background: #eff6ff;
+
+color: #2563eb;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+font-size: 28px;
+
+
+}
+
+.no-articles h3 {
+
+
+margin-bottom: 7px;
+
+
+}
+
+.no-articles p {
+
+
+color: #6b7280;
+
+font-size: 14px;
+
+
+}
+
+/* TABLET */
+
+@media (max-width: 1050px) {
+
+
+.articles-grid {
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+}
+
+
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+
+.articles-grid {
+
+    grid-template-columns: 1fr;
+
+}
+
+
+.article-image {
+
+    height: 250px;
+
+}
+}
+
+</style>
+
+
 </head>
+
 <body>
-    hello toi
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+
+<a
+    href="{% url 'accueil' %}"
+    class="logo"
+>
+
+    <div class="logo-icon">
+
+        <i class="fa-solid fa-newspaper"></i>
+
+    </div>
+
+    <span>
+        Presse <span>Numérique</span>
+    </span>
+
+</a>
+
+
+<button
+    type="button"
+    class="menu-toggle"
+    id="menuToggle"
+    aria-label="Ouvrir le menu"
+>
+
+    <i class="fa-solid fa-bars"></i>
+
+</button>
+
+
+<ul
+    class="nav-menu"
+    id="navMenu"
+>
+
+    <li>
+
+        <a
+            href="{% url 'accueil' %}"
+            class="active"
+        >
+
+            <i class="fa-solid fa-house"></i>
+
+            Accueil
+
+        </a>
+
+    </li>
+
+
+    <li>
+
+        <a
+            href="#abonnement"
+            class="nav-subscribe"
+        >
+
+            <i class="fa-solid fa-crown"></i>
+
+            S'abonner
+
+        </a>
+
+    </li>
+
+
+    <li>
+
+        <a href="#maisons">
+
+            <i class="fa-solid fa-building"></i>
+
+            Maisons d'édition
+
+        </a>
+
+    </li>
+
+
+    <li>
+
+        <a href="{% url 'login' %}">
+
+            <i class="fa-solid fa-right-to-bracket"></i>
+
+            Se connecter
+
+        </a>
+
+    </li>
+
+
+    <li>
+
+        <a href="{% url 'login' %}">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Se déconnecter
+
+        </a>
+
+    </li>
+
+
+    <li>
+
+        <form
+            action="#"
+            method="GET"
+            class="search-box"
+        >
+
+            <input
+                type="search"
+                name="q"
+                placeholder="Rechercher..."
+                autocomplete="off"
+            >
+
+            <button
+                type="submit"
+                aria-label="Rechercher"
+            >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
+        </form>
+
+    </li>
+
+</ul>
+
+
+</nav>
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+
+<div class="hero-content">
+
+    <div class="hero-badge">
+
+        <i class="fa-solid fa-bolt"></i>
+
+        Votre presse numérique en un seul endroit
+
+    </div>
+
+
+    <h1>
+
+        L'information
+
+        <span class="blue">
+            autrement.
+        </span>
+
+        <br>
+
+        Simple,
+
+        <span class="pink">
+            rapide
+        </span>
+
+        et accessible.
+
+    </h1>
+
+
+    <p class="hero-description">
+
+        Découvrez les dernières publications des maisons
+        d'édition, explorez différentes catégories et
+        accédez à vos contenus numériques préférés depuis
+        une seule plateforme.
+
+    </p>
+
+
+    <div class="hero-buttons">
+
+        <a
+            href="#articles"
+            class="btn btn-primary"
+        >
+
+            <i class="fa-solid fa-newspaper"></i>
+
+            Découvrir les articles
+
+        </a>
+
+
+        <a
+            href="#maisons"
+            class="btn btn-secondary"
+        >
+
+            <i class="fa-solid fa-building"></i>
+
+            Voir les maisons d'édition
+
+        </a>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- =====================================================
+     STATISTIQUES
+===================================================== -->
+
+<section class="stats">
+
+
+<div class="stats-container">
+
+    <div class="stat">
+
+        <div class="stat-icon">
+
+            <i class="fa-solid fa-newspaper"></i>
+
+        </div>
+
+        <div>
+
+            <strong>+100</strong>
+
+            <span>
+                Publications disponibles
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+
+            <i class="fa-solid fa-building"></i>
+
+        </div>
+
+        <div>
+
+            <strong>+20</strong>
+
+            <span>
+                Maisons d'édition
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-icon">
+
+            <i class="fa-solid fa-users"></i>
+
+        </div>
+
+        <div>
+
+            <strong>+1K</strong>
+
+            <span>
+                Lecteurs
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- =====================================================
+     ARTICLES
+===================================================== -->
+
+<section
+    class="section"
+    id="articles"
+>
+<div class="section-header">
+
+    <span class="section-label">
+        Publications
+    </span>
+
+    <h2>
+        Découvrez nos contenus
+    </h2>
+
+    <p>
+        Retrouvez les dernières publications proposées
+        par les maisons d'édition présentes sur notre
+        plateforme.
+    </p>
+
+</div>
+
+
+{% if articles %}
+
+    <div class="articles-grid">
+
+        {% for article in articles %}
+
+            <article class="article-card">
+
+
+                <!-- IMAGE DE L'ARTICLE -->
+
+                <div class="article-image">
+
+                    {% if article.image %}
+
+                        <img
+                            src="{{ article.image.url }}"
+                            alt="{{ article.titre }}"
+                        >
+
+                    {% else %}
+
+                        <div class="article-no-image">
+
+                            <i class="fa-solid fa-newspaper"></i>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- PRIX -->
+
+                    <div class="article-price">
+
+                        {{ article.prix }} FCFA
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONTENU -->
+
+                <div class="article-content">
+
+
+                    <!-- MAISON D'EDITION -->
+
+                    <div class="article-house">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        {% if article.maison %}
+
+                            {{ article.maison.nom_maison }}
+
+                        {% else %}
+
+                            Maison d'édition
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- TITRE -->
+
+                    <h3 class="article-title">
+
+                        {{ article.titre }}
+
+                    </h3>
+
+
+                    <!-- DATE -->
+
+                    {% if article.date_publication %}
+
+                        <div class="article-date">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            {{ article.date_publication|date:"d/m/Y" }}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- BOUTONS -->
+
+                    <div class="article-buttons">
+
+
+                        <!-- AJOUTER AU PANIER -->
+
+                        <form
+                            method="POST"
+                            action="#"
+                        >
+
+                            {% csrf_token %}
+
+                            <input
+                                type="hidden"
+                                name="article_id"
+                                value="{{ article.id }}"
+                            >
+
+                            <button
+                                type="submit"
+                                class="btn-cart"
+                            >
+
+                                <i class="fa-solid fa-cart-shopping"></i>
+
+                                Ajouter au panier
+
+                            </button>
+
+                        </form>
+
+
+                        <!-- S'ABONNER -->
+
+                        <a
+                            href="#abonnement"
+                            class="btn-article-subscribe"
+                        >
+
+                            <i class="fa-solid fa-crown"></i>
+
+                            S'abonner
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- COMMENTAIRE -->
+
+                    <div class="article-comment">
+
+                        <label
+                            for="commentaire-{{ article.id }}"
+                        >
+
+                            <i class="fa-regular fa-comment"></i>
+
+                            Commentaire
+
+                        </label>
+
+
+                        <form
+                            method="POST"
+                            action="#"
+                        >
+
+                            {% csrf_token %}
+
+                            <input
+                                type="hidden"
+                                name="article_id"
+                                value="{{ article.id }}"
+                            >
+
+
+                            <div class="comment-box">
+
+                                <input
+                                    type="text"
+                                    id="commentaire-{{ article.id }}"
+                                    name="commentaire"
+                                    placeholder="Écrire un commentaire..."
+                                    maxlength="500"
+                                >
+
+
+                                <button
+                                    type="submit"
+                                    aria-label="Envoyer le commentaire"
+                                >
+
+                                    <i class="fa-solid fa-paper-plane"></i>
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+            </article>
+
+        {% endfor %}
+
+    </div>
+
+
+{% else %}
+
+    <!-- AUCUN ARTICLE -->
+
+    <div class="no-articles">
+
+        <div class="no-articles-icon">
+
+            <i class="fa-solid fa-newspaper"></i>
+
+        </div>
+
+        <h3>
+            Aucun article disponible
+        </h3>
+
+        <p>
+            Aucune publication n'est disponible
+            pour le moment.
+        </p>
+
+    </div>
+
+{% endif %}
+
+
+</section>
+
+
+<!-- =====================================================
+     ABONNEMENT
+===================================================== -->
+
+<section
+    class="section"
+    id="abonnement"
+>
+
+
+<div class="subscription">
+
+    <h2>
+        Ne manquez aucune publication
+    </h2>
+
+    <p>
+        Abonnez-vous pour profiter d'une meilleure
+        expérience et accéder aux contenus proposés
+        par les maisons d'édition.
+    </p>
+
+
+    <a
+        href="#"
+        class="btn"
+    >
+
+        <i class="fa-solid fa-crown"></i>
+
+        Découvrir les abonnements
+
+    </a>
+
+</div>
+
+
+</section>
+
+<!-- =====================================================
+     MAISONS D'ÉDITION
+===================================================== -->
+
+<section
+    class="section houses-section"
+    id="maisons"
+>
+<div class="section-header">
+
+    <span class="section-label">
+        Nos partenaires
+    </span>
+
+    <h2>
+        Maisons d'édition
+    </h2>
+
+    <p>
+        Découvrez les maisons d'édition qui publient
+        leurs contenus sur notre plateforme.
+    </p>
+
+</div>
+
+
+<div class="houses">
+
+    <div class="house">
+
+        <div class="house-logo">
+
+            <i class="fa-solid fa-building"></i>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Maison d'édition
+            </h3>
+
+            <p>
+                Découvrez ses publications
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="house">
+
+        <div class="house-logo">
+
+            <i class="fa-solid fa-book"></i>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Maison d'édition
+            </h3>
+
+            <p>
+                Découvrez ses publications
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="house">
+
+        <div class="house-logo">
+
+            <i class="fa-solid fa-newspaper"></i>
+
+        </div>
+
+        <div>
+
+            <h3>
+                Maison d'édition
+            </h3>
+
+            <p>
+                Découvrez ses publications
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+<div class="footer-container">
+
+    <div class="footer-brand">
+
+        <a
+            href="{% url 'accueil' %}"
+            class="logo"
+        >
+
+            <div class="logo-icon">
+
+                <i class="fa-solid fa-newspaper"></i>
+
+            </div>
+
+            <span>
+                Presse <span>Numérique</span>
+            </span>
+
+        </a>
+
+
+        <p>
+            Une plateforme numérique permettant de
+            découvrir, consulter et accéder aux
+            publications des maisons d'édition.
+        </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+        <h4>
+            Navigation
+        </h4>
+
+        <a href="#articles">
+            Articles
+        </a>
+
+        <a href="#maisons">
+            Maisons d'édition
+        </a>
+
+        <a href="#abonnement">
+            Abonnement
+        </a>
+
+    </div>
+
+
+    <div class="footer-links">
+
+        <h4>
+            Compte
+        </h4>
+
+        <a href="{% url 'login' %}">
+            Se connecter
+        </a>
+
+        <a href="{% url 'login' %}">
+            Se déconnecter
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="copyright">
+
+    &copy; 2026 Presse Numérique.
+    Tous droits réservés.
+
+</div>
+
+</footer>
+
+<!-- =====================================================
+     JAVASCRIPT MENU MOBILE
+===================================================== -->
+
+<script>
+
+    const menuToggle =
+        document.getElementById("menuToggle");
+
+    const navMenu =
+        document.getElementById("navMenu");
+
+
+    menuToggle.addEventListener(
+        "click",
+        function () {
+
+            navMenu.classList.toggle("active");
+
+            const icon =
+                menuToggle.querySelector("i");
+
+
+            if (
+                navMenu.classList.contains("active")
+            ) {
+
+                icon.classList.remove(
+                    "fa-bars"
+                );
+
+                icon.classList.add(
+                    "fa-xmark"
+                );
+
+            } else {
+
+                icon.classList.remove(
+                    "fa-xmark"
+                );
+
+                icon.classList.add(
+                    "fa-bars"
+                );
+
+            }
+
+        }
+    );
+
+
+    /*
+       Fermer le menu mobile après
+       avoir sélectionné un lien.
+    */
+
+    document
+        .querySelectorAll(".nav-menu a")
+        .forEach(
+            function(link) {
+
+                link.addEventListener(
+                    "click",
+                    function() {
+
+                        navMenu.classList.remove(
+                            "active"
+                        );
+
+
+                        const icon =
+                            menuToggle.querySelector(
+                                "i"
+                            );
+
+
+                        icon.classList.remove(
+                            "fa-xmark"
+                        );
+
+                        icon.classList.add(
+                            "fa-bars"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+</script>
+
 </body>
+
 </html>

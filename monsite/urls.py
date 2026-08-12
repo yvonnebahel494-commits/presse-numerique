@@ -8,6 +8,7 @@ urlpatterns = [
     path ('editeur/',include('editeur.urls')),
     path ('lecteur/',include('lecteur.urls')),
     path ('visiteur/',include('visiteur.urls')),
+    path ('',include('visiteur.urls')),
 ]
 if settings.DEBUG:
 
