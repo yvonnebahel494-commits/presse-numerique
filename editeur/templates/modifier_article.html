@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Modifier l'article</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f6fa;
+        color: #333;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: 50px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .header h2 {
+        margin: 0;
+    }
+
+    .close-btn {
+        text-decoration: none;
+        font-size: 28px;
+        color: #777;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 7px;
+        font-size: 15px;
+    }
+
+    input:focus,
+    select:focus {
+        outline: none;
+        border-color: #4f46e5;
+    }
+
+    .current-file {
+        margin-top: 8px;
+        padding: 10px;
+        background: #f5f5f5;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+
+    .current-file a {
+        text-decoration: none;
+        color: #4f46e5;
+        font-weight: bold;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 13px;
+        border: none;
+        border-radius: 7px;
+        background: #4f46e5;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .btn-submit:hover {
+        opacity: 0.9;
+    }
+
+    .btn-cancel {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 12px;
+        padding: 13px;
+        border-radius: 7px;
+        background: #eee;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .messages {
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        padding: 12px 15px;
+        border-radius: 7px;
+        margin-bottom: 10px;
+    }
+
+    .alert-success {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    .alert-error {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .preview-image {
+        margin-top: 10px;
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<div class="header">
+    <h2>Modifier l'article</h2>
+
+    <a href="{% url 'dashboard' %}" class="close-btn">
+        &times;
+    </a>
+</div>
+
+
+<!-- Messages Django -->
+{% if messages %}
+    <div class="messages">
+
+        {% for message in messages %}
+
+            <div class="alert
+                {% if message.tags == 'success' %}
+                    alert-success
+                {% else %}
+                    alert-error
+                {% endif %}
+            ">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    </div>
+{% endif %}
+
+
+<form
+    method="POST"
+    enctype="multipart/form-data"
+>
+
+    {% csrf_token %}
+
+
+    <!-- Titre -->
+    <div class="form-group">
+
+        <label for="titre">
+            Titre de l'article
+        </label>
+
+        <input
+            type="text"
+            id="titre"
+            name="titre"
+            value="{{ article.titre }}"
+            placeholder="Titre de l'article"
+            required
+        >
+
+    </div>
+
+
+    <!-- Type -->
+    <div class="form-group">
+
+        <label for="type">
+            Type d'article
+        </label>
+
+        <select
+            id="type"
+            name="type"
+            required
+        >
+
+            <option value="">
+                -- Sélectionner un type --
+            </option>
+
+            <option
+                value="actualite"
+                {% if article.type == "actualite" %}selected{% endif %}
+            >
+                Actualité
+            </option>
+
+            <option
+                value="politique"
+                {% if article.type == "politique" %}selected{% endif %}
+            >
+                Politique
+            </option>
+
+            <option
+                value="economie"
+                {% if article.type == "economie" %}selected{% endif %}
+            >
+                Économie
+            </option>
+
+            <option
+                value="sport"
+                {% if article.type == "sport" %}selected{% endif %}
+            >
+                Sport
+            </option>
+
+            <option
+                value="culture"
+                {% if article.type == "culture" %}selected{% endif %}
+            >
+                Culture
+            </option>
+
+            <option
+                value="technologie"
+                {% if article.type == "technologie" %}selected{% endif %}
+            >
+                Technologie
+            </option>
+
+            <option
+                value="societe"
+                {% if article.type == "societe" %}selected{% endif %}
+            >
+                Société
+            </option>
+
+            <option
+                value="autre"
+                {% if article.type == "autre" %}selected{% endif %}
+            >
+                Autre
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- Prix -->
+    <div class="form-group">
+
+        <label for="prix">
+            Prix
+        </label>
+
+        <input
+            type="number"
+            id="prix"
+            name="prix"
+            value="{{ article.prix }}"
+            min="0"
+            step="0.01"
+            required
+        >
+
+    </div>
+
+
+    <!-- Image -->
+    <div class="form-group">
+
+        <label for="image">
+            Nouvelle image
+        </label>
+
+        <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+        >
+
+
+        {% if article.image %}
+
+            <div class="current-file">
+
+                <strong>Image actuelle :</strong>
+
+                <br>
+
+                <img
+                    src="{{ article.image.url }}"
+                    alt="{{ article.titre }}"
+                    class="preview-image"
+                >
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- PDF -->
+    <div class="form-group">
+
+        <label for="pdf">
+            Nouveau fichier PDF
+        </label>
+
+        <input
+            type="file"
+            id="pdf"
+            name="pdf"
+            accept="application/pdf"
+        >
+
+
+        {% if article.pdf %}
+
+            <div class="current-file">
+
+                <strong>PDF actuel :</strong>
+
+                <br>
+
+                <a
+                    href="{{ article.pdf.url }}"
+                    target="_blank"
+                >
+                    Voir le PDF actuel
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- Bouton -->
+    <button
+        type="submit"
+        class="btn-submit"
+    >
+        Enregistrer les modifications
+    </button>
+
+
+    <a
+        href="{% url 'dashboard' %}"
+        class="btn-cancel"
+    >
+        Annuler
+    </a>
+
+</form>
+```
+
+</div>
+
+</body>
+</html>
